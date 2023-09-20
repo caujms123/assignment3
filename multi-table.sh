@@ -1,19 +1,22 @@
-#!/bin/bash
+#!/bin/sh
 if [ $# -lt 2 ]; then
     echo  "Invaild input"
     exit 1
 fi
 
-is_number() {
-    if [[ $1 =~ ^-?[0-9]+$ ]]; then
-        return 0
-    else
-        return 1
-    fi
+is_positive_number() {
+    case $1 in
+        ''|*[!0-9]*)
+            return 1
+            ;;
+        *)
+            return 0
+            ;;
+    esac;
 }
 
-if ! is_number $1 || ! is_number $2; then
-    echo "Invalid input"
+if ! is_positive_number $1 || ! is_positive_number $2; then
+    echo "Invalid input ( Negative or not a number )"
     exit 1
 fi
 
